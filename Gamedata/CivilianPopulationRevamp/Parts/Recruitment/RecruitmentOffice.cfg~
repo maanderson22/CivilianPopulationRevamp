@@ -1,0 +1,95 @@
+PART
+{
+name = nduniversity
+
+module = Part
+author = hester
+
+MODEL
+	{
+    model = CivilianPopulationRevamp/Assets/RecruitmentOffice
+	}
+rescaleFactor = 1
+
+node_stack_top = 0.0, 5, 0.0, 0.0, 1.0, 0.0, 3
+node_stack_bottom = 0.0, -5, 0.0, 0.0, -1.0, 0.0, 3
+node_attach = 0.0,-5, 0,  0.0, -1, 0, 2
+CrewCapacity = 8
+
+TechRequired = advExploration
+entryCost = 10400
+cost = 80000
+category = Science
+subcategory = 0
+title = Netherdyne University
+manufacturer = Netherdyne KR department
+description = Give the civilians on your generation ship a chance at a higher education (as if they could get smarter).
+
+attachRules = 1,1,1,1,1
+
+mass = 15
+dragModelType = default
+maximum_drag = 0.2
+minimum_drag = 0.3
+angularDrag = 2
+crashTolerance = 16
+breakingForce = 2000
+breakingTorque = 2000
+maxTemp = 2900
+
+vesselType = Ship
+
+MODULE
+{
+	name = ModuleCommand
+	minimumCrew = 0
+}
+
+INTERNAL
+{
+	name= RecruitmentOffice
+}
+
+
+MODULE
+	{
+		name = ModuleScienceContainer
+		reviewActionName = Review Data
+		storeActionName = Store Experiments
+		collectActionName = Take Data
+		evaOnlyStorage = True
+		storageRange = 2
+		allowRepeatedSubjects = True
+	}
+MODULE
+	{
+		name = ModuleScienceLab
+		containerModuleIndex = 1
+		dataStorage = 500
+		crewsRequired = 1
+		canResetConnectedModules = True
+		canResetNearbyModules = True
+		interactionRange = 5
+		SurfaceBonus = 0.1
+		ContextBonus = 0.25
+		homeworldMultiplier = 0.1
+		RESOURCE_PROCESS
+		{
+			name = ElectricCharge
+			amount = 10
+		}
+	}
+
+
+MODULE
+{
+	name = KerbalRecruitment
+}
+
+RESOURCE
+	{
+	name = ElectricCharge
+	amount = 1000
+	maxAmount = 1000
+	}
+}

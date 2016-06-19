@@ -1,0 +1,58 @@
+PART
+{
+	name = civieDock
+	module = Part
+	author = hester
+
+	MODEL
+		{
+	    model = CivilianPopulationRevamp/Assets/civiedock
+		}
+
+	node_stack_top = 0.0, 1, 0.0, 0.0, 1.0, 0.0, 2
+	node_stack_bottom = 0.0, -1, 0.0, 0.0, -1.0, 0.0, 2
+	node_attach = 0.0, -1, 0, 0.0, -1, 0, 2
+
+	CrewCapacity = 4 
+	TechRequired = start
+	entryCost = 100
+	cost = 100
+	category = Pods
+	subcategory = 0
+	title = Civilian Contractor Dock Mk1
+	manufacturer = Nagoya-Goliath Kolonization Division
+	description = For stations in orbit around Kerbin and her moons it is feasible to sub-contract civilian transport to facilities.  This module allows new civilians to arrive on the base.
+
+	attachRules = 1,1,1,1,1
+
+	mass = 2
+	dragModelType = default
+	maximum_drag = 0.2
+	minimum_drag = 0.3
+	angularDrag = 2
+	crashTolerance = 8
+	breakingForce = 200
+	breakingTorque = 200
+	maxTemp = 2900
+	INTERNAL
+	{
+		name = crewCabinInternals
+	}
+	vesselType = Ship
+	MODULE
+	{
+		name = CivilianDockGrowth
+		populationGrowthModifier = 0.000000545 //One Kerbal every 85 days
+	}
+	MODULE
+	{
+		name = KerbalRecruitment
+	}
+	RESOURCE
+	{
+		name = CivilianGrowthCounter
+		amount = 0
+		maxAmount = 2
+		isTweakable = false
+	}
+}

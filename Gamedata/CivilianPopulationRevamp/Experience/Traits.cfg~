@@ -1,0 +1,11 @@
+EXPERIENCE_TRAIT
+{
+	name = Civilian
+	title = CivilianTitle
+	desc = TestPilots are essential for opperations.
+
+	EFFECT
+	{
+		name = SpecialistClass
+	}
+}

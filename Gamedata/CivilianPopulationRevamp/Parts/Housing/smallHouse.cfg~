@@ -1,0 +1,75 @@
+PART
+{
+name = surfaceAttachHouseSmall
+module = Part
+author = hester
+MODEL
+	{
+    model = CivilianPopulationRevamp/Assets/surfaceAttachHouseSmall
+	}
+
+node_stack_top = 0.0, 0.7, 0.0, 0.0, 1.0, 0.0, 2
+node_stack_bottom = 0.0, -0.7, 0.0, 0.0, -1.0, 0.0, 2
+node_attach = 0.0, -0.7, 0, 0.0, -1, 0, 2
+CrewCapacity = 4
+
+TechRequired = spaceExploration
+entryCost = 10400
+cost = 13500
+category = Utility
+subcategory = 0
+title = Civilian Small House
+manufacturer = Netherdyne KR department
+description =  Attach this small house to any ship or base.  Also goes great in a biodome.
+
+attachRules = 1,1,1,1,1
+
+mass = 0.5
+dragModelType = default
+maximum_drag = 0.2
+minimum_drag = 0.3
+angularDrag = 2
+crashTolerance = 12
+breakingForce = 200
+breakingTorque = 200
+maxTemp = 2900
+
+INTERNAL
+{
+	name = CivilianPopulationRevamp/AssetssurfaceAttachHouseSmallinternalInternal
+}
+
+
+RESOURCE
+	{
+	name = ElectricCharge
+	amount = 30
+	maxAmount = 30
+	}
+	
+MODULE
+{
+	name = ModuleScienceContainer
+	
+	reviewActionName = Review Data
+	storeActionName = Store Experiments	
+	collectActionName = Take Data
+	
+	evaOnlyStorage = True
+	storageRange = 2
+	
+	allowRepeatedSubjects = True
+}
+MODULE
+{
+	name = CivilianSpawnGrowth
+		populationGrowthModifier = 0.000000185//about 1000 days to get to full
+}
+
+RESOURCE {
+		name = CivilianGrowthCounter
+		amount = 0
+		maxAmount = 2
+	}
+	
+}

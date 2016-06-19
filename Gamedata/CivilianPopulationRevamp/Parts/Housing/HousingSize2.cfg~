@@ -1,0 +1,78 @@
+PART
+{
+name = InsituKerbalRecruiterTest
+module = Part
+author = Hester, Cosmic Farmer
+MODEL
+	{
+    model = CivilianPopulationRevamp/Assets/CiviHousing_Size2_01
+	texture = blank_1 , Squad/Parts/Utility/dockingPortSr/model000
+	texture = blank_1_NRM , Squad/Parts/Utility/dockingPortSr/model001
+	scale = 1, 1, 1
+	}
+scale = 1
+rescaleFactor = 1
+
+node_stack_top = 0.0, 2, 0.0, 0.0, 1.0, 0.0, 3
+node_stack_bottom = 0.0, -2, 0.0, 0.0, -1.0, 0.0, 3
+node_attach = 0.0, -2, 0, 0.0, -1.0, 0, 3
+CrewCapacity = 8
+
+TechRequired = spaceExploration
+entryCost = 10400
+cost = 13500
+category = Utility
+subcategory = 0
+title = Civilian Large House mk2
+manufacturer = Nagoya-Goliath Kolonization Division
+description = Intended for the house owner on the up, or the station developer on a budget, this cozy habitation pod has long-term living space for up to 8 kerbals.
+attachRules = 1,1,1,1,1
+
+mass = 2
+dragModelType = default
+maximum_drag = 0.2
+minimum_drag = 0.3
+angularDrag = 2
+crashTolerance = 12
+breakingForce = 200
+breakingTorque = 200
+maxTemp = 2900
+
+INTERNAL
+{
+	name = CivilianPopulationRevamp/Assets/smallApartmentInternal
+	
+}
+
+RESOURCE
+	{
+	name = ElectricCharge
+	amount = 100
+	maxAmount = 100
+	}
+MODULE
+{
+	name = ModuleScienceContainer
+	
+	reviewActionName = Review Data
+	storeActionName = Store Experiments	
+	collectActionName = Take Data
+	
+	evaOnlyStorage = True
+	storageRange = 2
+	
+	allowRepeatedSubjects = True
+}
+MODULE
+{
+	name = CivilianSpawnGrowth
+		populationGrowthModifier = 0.000000185//about 1000 days to get to full
+}
+
+RESOURCE {
+		name = CivilianGrowthCounter
+		amount = 0
+		maxAmount = 2
+	}
+	
+}
