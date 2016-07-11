@@ -10,7 +10,7 @@ namespace CivilianPopulationRevamp
     [KSPEvent (guiName = "Recruit Kerbal", active = true, guiActive = true)]
     void recruitKerbal ()
     {
-      Debug.Log (debuggingClass.modName + "Button pressed!");
+      Debug.Log (debuggingClass.modName + "Kerbal Recruitment Button pressed!");
       bool changedTrait = false;
       List<ProtoCrewMember> vesselCrew = vessel.GetVesselCrew ();
       foreach (ProtoCrewMember crewMember in vesselCrew) {

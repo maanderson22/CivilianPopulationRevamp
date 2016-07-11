@@ -7,7 +7,6 @@ using KSP;
 
 namespace CivilianPopulationRevamp
 {
-  [KSPAddon (KSPAddon.Startup.Flight, false)]
   public class CivilianPopulationRegulator : BaseConverter
   {
     /// <summary>
@@ -44,12 +43,14 @@ namespace CivilianPopulationRevamp
     {
       growthRate foundMaster = null;
       foreach (growthRate p in partsWithCivies) {
-        if (p.master) {//initially only executes if master is set in OnStart()
-          if (foundMaster != null) {//if this is NOT the first time executing
+        if (p.master) {               //initially only executes if master is set in OnStart()
+          if (foundMaster != null) {  //if this is NOT the first time executing; seems to never execute
             p.slave = true;
             p.master = false;
+            Debug.Log (debuggingClass.modName + "Master part found; set to slave");
           } else {
             foundMaster = p;
+            Debug.Log (debuggingClass.modName + "Master part set");
           }
         }
       }
@@ -71,7 +72,6 @@ namespace CivilianPopulationRevamp
       if (master || slave) {              //If (for whatever reason) master/slaves already assigned (such as previous flight)
         return false;
       }
-      master = true;
       return true;
     }
 
@@ -196,7 +196,7 @@ namespace CivilianPopulationRevamp
     }
 
     /// <summary>
-    /// Gets the delta time of the physics (?) update.  First it confirms the game is in a valid state.  Then it calculates
+    /// Gets the delta time of the physics (?) update.  First it confirms the game is in a valid state.  Then it calculats
     /// the time between physics update by comparing with Planetarium.GetUniversalTime() and GetMaxDeltaTime().
     /// </summary>
     /// <returns>The delta time.</returns>
@@ -204,16 +204,25 @@ namespace CivilianPopulationRevamp
     {
       if (Time.timeSinceLevelLoad < 1.0f || !FlightGlobals.ready) {
         //Error:  Not sure what this error is for...maybe not enough time since load?
+        Debug.Log(debuggingClass.modName + "ERROR:  check timeSinceLevelLoad/FlightGlobals");
+        Debug.Log(debuggingClass.modName + "timeSinceLevelLoad = " + Time.timeSinceLevelLoad);
+        Debug.Log(debuggingClass.modName + "FlightGlobals.ready = " + !FlightGlobals.ready);
         return -1;
       }
 
       if (Math.Abs (lastUpdateTime) < float.Epsilon) {
         //Error:  Just started running
+        Debug.Log(debuggingClass.modName + "ERROR:  check lastUpdateTime");
+        Debug.Log(debuggingClass.modName + "lastUpdateTime = " + lastUpdateTime);
+        lastUpdateTime = Planetarium.GetUniversalTime();
         return -1;
       }
 
       var deltaTime = Math.Min (Planetarium.GetUniversalTime () - lastUpdateTime, ResourceUtilities.GetMaxDeltaTime ());
       return deltaTime;
+
+      //why is deltaTime == 0?
+      //return deltaTime;
     }
 
     public void getTaxes (int numCivilians, double reduceTime)
