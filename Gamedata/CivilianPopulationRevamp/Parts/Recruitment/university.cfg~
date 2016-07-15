@@ -7,7 +7,7 @@ author = hester
 
 MODEL
 	{
-    model = CivilianPopulationRevamp/Assets/RecruitmentOffice
+    model = CivilianPopulationRevamp/Assets/university
 	}
 rescaleFactor = 1
 
@@ -23,7 +23,7 @@ category = Science
 subcategory = 0
 title = Netherdyne University
 manufacturer = Netherdyne KR department
-description = Give the civilians on your generation ship a chance at a higher education (as if they could get smarter).
+description = With the recruiting office, you can recruit Civilians into your space program!  It's always nice to show the little people some love.
 
 attachRules = 1,1,1,1,1
 
@@ -47,7 +47,7 @@ MODULE
 
 INTERNAL
 {
-	name= RecruitmentOfficeInternal
+	name= universityInternal
 }
 
 

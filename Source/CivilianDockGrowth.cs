@@ -29,7 +29,7 @@ namespace CivilianPopulationRevamp
     {
       if (!HighLogic.LoadedSceneIsFlight)
         return;
-      Debug.Log (debuggingClass.modName + "Starting FixedUpdate!");
+      //Debug.Log (debuggingClass.modName + "Starting FixedUpdate!");
 
       //if (!master & !slave)
       //return;
@@ -38,7 +38,7 @@ namespace CivilianPopulationRevamp
       int nonCivilianPopulation = 0;
       int civilianPopulationSeats = 0;
       double percentCurrentCivilian = 0d;
-      Debug.Log (debuggingClass.modName + "Master Status:  " + master + "Slave Status:  " + slave);
+      //Debug.Log (debuggingClass.modName + "Master Status:  " + master + "Slave Status:  " + slave);
 
       List<CivilianDockGrowth> listOfCivilianParts = vessel.FindPartModulesImplementing<CivilianDockGrowth> ();
 
@@ -63,7 +63,7 @@ namespace CivilianPopulationRevamp
           part.RequestResource (debuggingClass.civilianResource, 1.0);
         }//end if condition to create Civilians
       }
-      Debug.Log (debuggingClass.modName + "Finished FixedUpdate!");
+      //Debug.Log (debuggingClass.modName + "Finished FixedUpdate!");
     }
 // end FixedUpdate
 

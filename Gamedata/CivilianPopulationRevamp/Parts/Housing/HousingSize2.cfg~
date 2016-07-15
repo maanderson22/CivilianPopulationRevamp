@@ -40,7 +40,7 @@ maxTemp = 2900
 
 INTERNAL
 {
-	name = CivilianPopulationRevamp/Assets/smallApartmentInternal
+	name = smallApartmentInternal
 	
 }
 

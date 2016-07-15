@@ -1,0 +1,31 @@
+{
+     "NAME":"Civilian Population Revamp",
+     "URL":"https://github.com/maanderson22/CivilianPopulationRevamp/releases",
+     "DOWNLOAD":"https://github.com/maanderson22/CivilianPopulationRevamp/releases",
+     "GITHUB":{
+         "USERNAME":"MAAnderson22",
+         "REPOSITORY":"CivilianPopulationRevamp",
+         "ALLOW_PRE_RELEASE":false
+     },
+     "VERSION":{
+         "MAJOR":0,
+         "MINOR":0,
+         "PATCH":2,
+         "BUILD":0
+     },
+     "KSP_VERSION":{
+         "MAJOR":1,
+         "MINOR":1,
+         "PATCH":2
+     },
+     "KSP_VERSION_MIN":{
+         "MAJOR":1,
+         "MINOR":1,
+         "PATCH":2
+     },
+     "KSP_VERSION_MAX":{
+         "MAJOR":1,
+         "MINOR":1,
+         "PATCH":2
+     }
+ } 

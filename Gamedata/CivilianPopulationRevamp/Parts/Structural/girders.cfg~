@@ -6,7 +6,7 @@ author = Hester, Cosmic Farmer, Rabidninjawombat
 
 MODEL
 {
-	model = CivilianPopulationRevamp/Assets/girder1x1NoCore
+	model = NetherdyneAerospace/CivilianManagement/Assets/girder1x1NoCore
 	scale = 1, 1, 1
 }
 scale = 1
@@ -53,7 +53,7 @@ author = hester
 
 MODEL
 {
-	model = CivilianPopulationRevamp/Assets/girder1x1Core
+	model = NetherdyneAerospace/CivilianManagement/Assets/girder1x1Core
 	scale = 1, 1, 1
 }
 scale = 1
@@ -99,7 +99,7 @@ author = hester,Cosmic_Farmer,RabidNinjaWombat
 
 MODEL
 {
-	model = CivilianPopulationRevamp/Assets/girder1x1CoreX
+	model = NetherdyneAerospace/CivilianManagement/Assets/girder1x1CoreX
 	scale = 1, 1, 1
 }
 scale = 1
@@ -144,7 +144,7 @@ author = hester,Cosmic_Farmer,RabidNinjaWombat
 
 MODEL
 {
-	model = CivilianPopulationRevamp/Assets/girder1x1CoreL
+	model = NetherdyneAerospace/CivilianManagement/Assets/girder1x1CoreL
 	scale = 1, 1, 1
 }
 scale = 1
@@ -190,7 +190,7 @@ author = hester,Cosmic_Farmer,RabidNinjaWombat
 
 MODEL
 {
-	model = CivilianPopulationRevamp/Assets/girder1x1CoreT
+	model = NetherdyneAerospace/CivilianManagement/Assets/girder1x1CoreT
 	scale = 1, 1, 1
 }
 scale = 1
@@ -237,7 +237,7 @@ author = Hester
 
 MODEL
 {
-	model = CivilianPopulationRevamp/Assets/girder3x1NoCore
+	model = NetherdyneAerospace/CivilianManagement/Assets/girder3x1NoCore
 }
 rescaleFactor = 1
 
@@ -276,7 +276,7 @@ author = hester
 
 MODEL
 {
-	model = CivilianPopulationRevamp/Assets/girder18x18LNoCore
+	model = NetherdyneAerospace/CivilianManagement/Assets/girder18x18LNoCore
 }
 rescaleFactor = 1
 
@@ -321,7 +321,7 @@ author = hester
 // --- asset parameters ---
 MODEL
 {
-	model = CivilianPopulationRevamp/Assets/LandingGear1
+	model = NetherdyneAerospace/CivilianManagement/Assets/LandingGear1
 }
 rescaleFactor = 1
 
@@ -382,7 +382,7 @@ author = hester
 // --- asset parameters ---
 MODEL
 {
-	model = CivilianPopulationRevamp/Assets/LandingGear2
+	model = NetherdyneAerospace/CivilianManagement/Assets/LandingGear2
 }
 rescaleFactor = 1
 

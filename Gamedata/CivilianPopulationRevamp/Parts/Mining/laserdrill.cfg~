@@ -1,0 +1,100 @@
+PART {
+	name = pipeNetwork
+	module = Part
+	author = Hester
+
+MODEL
+  {
+    model = NetherdyneAerospace/CivilianManagement/Assets/laserDrill
+	//texture = Decal00 , UmbraSpaceIndustries/Kolonization/Assets/Decal07
+//texture = Decal00 , UmbraSpaceIndustries/Kolonization/Assets/Decal07
+//texture = Decal00_GLOW , UmbraSpaceIndustries/Kolonization/Assets/Decal07_GLOW
+}
+rescaleFactor = 1
+
+ 
+node_attach = 1.2, 0, 0, 1, 0, 0, 2
+
+	TechRequired = advScienceTech
+	entryCost = 5000
+	cost = 16500
+	category = Utility
+	subcategory = 0
+	title = Netherdyne Laser Drill
+	manufacturer = Netherdyne Aerospace
+	description = Extract Planetary Resources with the power of Lasers!
+	attachRules = 1,1,1,1,1
+
+	// --- standard part parameters ---
+	mass = 2.5
+	dragModelType = override
+	maximum_drag = 0
+	minimum_drag = 0
+	angularDrag = 0
+	crashTolerance = 7
+	breakingForce = 200
+	breakingTorque = 200
+	maxTemp = 5000
+	//ThermalAnim = Heat;
+
+	//MODULE
+	//{
+	// name = Smelter
+	// ThermalAnim = Heat;
+	//}
+
+	// Convert Ore to Metal
+		MODULE
+	{
+		name = ModuleResourceHarvester
+		HarvesterType = 0
+		Efficiency = 4
+		ResourceName = Substrate
+		ConverterName = Substrate Drill
+		StartActionName = Start Substrate Drill
+		StopActionName = Stop Substrate Drill
+		INPUT_RESOURCE
+		{
+			ResourceName = ElectricCharge
+			Ratio = 24
+		}
+	}
+	MODULE
+	{
+		name = ModuleResourceHarvester
+		HarvesterType = 0
+		Efficiency = 4
+		ResourceName = Water
+		ConverterName = Water Drill
+		StartActionName = Start Water Drill
+		StopActionName = Stop Water Drill
+		INPUT_RESOURCE
+		{
+			ResourceName = ElectricCharge
+			Ratio = 24
+		}
+	}	
+	MODULE
+	{
+		name = ModuleResourceHarvester
+		HarvesterType = 0
+		Efficiency = 4
+		ResourceName = MetalOre
+		ConverterName = MetalOre Drill
+		StartActionName = Start MetalOre Drill
+		StopActionName = Stop MetalOre Drill
+		INPUT_RESOURCE
+		{
+			ResourceName = ElectricCharge
+			Ratio = 24
+		}
+	}	
+	MODULE
+	{
+		name = ModuleAnimationGroup
+		deployAnimationName = Deploy
+		activeAnimationName = Drill
+		moduleType = Drill
+	}
+}
+

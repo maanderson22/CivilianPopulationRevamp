@@ -105,13 +105,14 @@ namespace CivilianPopulationRevamp
       else
         activeVesselName = "[Could not find name]";
       int numCivilians = 0;
-      List<String> listCivilianNames = new List<String> ();
+      List<ProtoCrewMember> listCivilians = new List<ProtoCrewMember> ();
       foreach (ProtoCrewMember crewMember in FlightGlobals.ActiveVessel.GetVesselCrew()) {
         if (crewMember.trait == debuggingClass.civilianTrait) {
-          listCivilianNames.Add (crewMember.name);
+          listCivilians.Add (crewMember);
           numCivilians++;
         }
       }
+
 
       //begin GUI
       GUILayout.BeginVertical ();
@@ -134,10 +135,22 @@ namespace CivilianPopulationRevamp
           Debug.Log (debuggingClass.modName + "Civilian Info button pressed. New value:  " + showPopInfo);
         }
         if (showPopInfo) {
-          Debug.Log (debuggingClass.modName + "running list for Civilian Info button!");
-          if (listCivilianNames.FirstOrDefault () != null) {
-            foreach (String crewName in listCivilianNames) {
-              GUILayout.Label (crewName);
+          if (listCivilians.FirstOrDefault () != null) {
+            foreach (ProtoCrewMember crewMember in listCivilians) {
+              GUILayout.BeginHorizontal ();
+              {
+                GUILayout.Label (crewMember.trait);
+                GUILayout.Label (crewMember.name);
+                if(GUILayout.Button("EVA")){
+                  Debug.Log (debuggingClass.modName + "User pressed button to initiate EVA of " + crewMember.name);
+                  FlightEVA.SpawnEVA (crewMember.KerbalRef);
+                }
+                /*if(GUILayout.Button("Transfer")){
+                  Debug.Log (debuggingClass.modName + "User pressed button to initiated transfer of " + crewMember.name);
+                  CrewTransfer.Create(crewMember.seat.part,crewMember);
+                }Transfer disabled for now; need to figure out how to use highlighting from ShipManifest mod...*/
+              }
+              GUILayout.EndHorizontal ();
             }
           }
         }
