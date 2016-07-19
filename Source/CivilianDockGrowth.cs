@@ -13,13 +13,7 @@ namespace CivilianPopulationRevamp
       if (shouldCheckForUpdate) {   //if master/slaves not set, flight status...should only be run once
         Debug.Log (debuggingClass.modName + this.name + " is running OnStart()!");
         List<CivilianDockGrowth> partsWithCivies = vessel.FindPartModulesImplementing<CivilianDockGrowth> ();
-        foreach (CivilianDockGrowth part in partsWithCivies) {//reset all master/slaves
-          part.master = false;
-          part.slave = true;
-        }
-        //assign this part as master
-        master = true;
-        slave = false;
+        setMasterSlaves (partsWithCivies);
       } else {                    //if master/slave set or flight status fail.  Should be run n-1 times where n = #parts
         Debug.Log (debuggingClass.modName + "WARNING: " + this.name + " is skipping OnStart!");
       }
@@ -29,10 +23,13 @@ namespace CivilianPopulationRevamp
     {
       if (!HighLogic.LoadedSceneIsFlight)
         return;
-      //Debug.Log (debuggingClass.modName + "Starting FixedUpdate!");
 
-      //if (!master & !slave)
-      //return;
+      List<CivilianDockGrowth> listOfCivilianParts = vessel.FindPartModulesImplementing<CivilianDockGrowth> ();
+
+      if ((!master && !slave) || (master && slave)) {
+        setMasterSlaves (listOfCivilianParts);
+        return;
+      }
       
       int civilianPopulation = 0;
       int nonCivilianPopulation = 0;
@@ -40,10 +37,8 @@ namespace CivilianPopulationRevamp
       double percentCurrentCivilian = 0d;
       //Debug.Log (debuggingClass.modName + "Master Status:  " + master + "Slave Status:  " + slave);
 
-      List<CivilianDockGrowth> listOfCivilianParts = vessel.FindPartModulesImplementing<CivilianDockGrowth> ();
-
       if (master == true) {                //master is set during OnStart()
-        double dt = GetDeltaTimex ();
+        double dt = Time.deltaTime;
 
         //Section to calculate growth variables
         civilianPopulation = countCiviliansOnShip (listOfCivilianParts);//number of seats taken by civilians in parts using class
@@ -57,7 +52,7 @@ namespace CivilianPopulationRevamp
           getTaxes (civilianPopulation, dt);
 
         //Section to create Civilians
-        part.RequestResource (debuggingClass.civilianResource, -percentCurrentCivilianRate * dt);
+        part.RequestResource (debuggingClass.civilianResource, -percentCurrentCivilianRate * dt * TimeWarp.CurrentRate);
         if ((percentCurrentCivilian > 1.0) && (civilianPopulationSeats > civilianPopulation + nonCivilianPopulation)) {
           placeNewCivilian (listOfCivilianParts);
           part.RequestResource (debuggingClass.civilianResource, 1.0);
@@ -104,7 +99,7 @@ namespace CivilianPopulationRevamp
           recruitmentRateModifier = 0.25;
           return recruitmentRateModifier;
         default:
-          //Debug.Log (debuggingClass.modName + "I don't care where I am!");
+          Debug.Log (debuggingClass.modName + "Problem finding SoI body!");
           recruitmentRateModifier = 0;
           return recruitmentRateModifier;
         }

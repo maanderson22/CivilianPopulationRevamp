@@ -13,7 +13,7 @@ namespace CivilianPopulationRevamp
     /// The current rate at which a civilian is created.  Typically around 1E-8 to start.
     /// </summary>
     [KSPField (isPersistant = true, guiActive = true, guiName = "Current Growth Rate")]
-    public double percentCurrentCivilianRate = 0d;
+    public double percentCurrentCivilianRate;
 
     [KSPField (isPersistant = true, guiActive = false)]
     public double populationGrowthModifier;
@@ -23,12 +23,14 @@ namespace CivilianPopulationRevamp
     /// </summary>
     [KSPField (isPersistant = true, guiActive = true, guiName = "Time until Rent payment")]
     public double TimeUntilTaxes = 21600.0;
-
+    /*
     /// <summary>
     /// The last time since calculateRateOverTime() was run.  Used to calculate time steps (?)
     /// </summary>
     [KSPField (isPersistant = true, guiActive = false)]
     public float lastTime;
+
+    */
     //only one part with this can be the master on any vessel.
     //this prevents duplicating the population calculation
     public bool master = false;
@@ -76,14 +78,33 @@ namespace CivilianPopulationRevamp
     }
 
     /// <summary>
+    /// Sets the master part.  All other parts implementing Civilian Population class are set to slaves.
+    /// </summary>
+    /// <returns>The master slaves.</returns>
+    /// <param name="listOfMembers">List of members.</param>
+    /// <typeparam name="growthRate">The 1st type parameter.</typeparam>
+    public void setMasterSlaves<growthRate> (List<growthRate> listOfMembers) where growthRate: CivilianPopulationRegulator
+    {
+      {   //if master/slaves not set, flight status...should only be run once
+        List<growthRate> partsWithCivies = vessel.FindPartModulesImplementing<growthRate> ();
+        foreach (growthRate part in partsWithCivies) {//reset all master/slaves
+          part.master = false;
+          part.slave = true;
+        }
+        //assign this part as master
+        master = true;
+        slave = false;
+    }
+    }
+
+    /// <summary>
     /// Counts Civilians within parts implementing CivilianPopulationRegulator class.  This should be limited to only
     /// Civilian Population Parts.  It also only counts Kerbals with Civilian Population trait.  Iterates first over each
     /// part implementing CivilianPopulationRegulator, and then iterates over each crew member within that part.      
     /// </summary>
-    /// <returns>The number of Civilians on the ship</returns>
+    /// <returns>The number of civilians on vessel</returns>
     /// <param name="listOfMembers">List of members.</param>
     public int countCiviliansOnShip<growthRate> (List<growthRate> listOfMembers) where growthRate: CivilianPopulationRegulator
-    //to get current ship, use this.vessel.protoVessel
     {
       int numberCivilians = 0;
       foreach (growthRate myRegulator in listOfMembers) {//check for each part implementing CivilianPopulationRegulator
@@ -98,6 +119,14 @@ namespace CivilianPopulationRevamp
       return numberCivilians;//number of Kerbals with trait: debuggingClass.civilianTrait -> Civilian
     }
 
+    /// <summary>
+    /// Counts non-Civilians within parts implementing CivilianPopulationRegulator class.  This should be limited to only
+    /// Civilian Population Parts.  It also only counts Kerbals without Civilian Population trait.  Iterates first over each
+    /// part implementing CivilianPopulationRegulator, and then iterates over each crew member within that part.      
+    /// </summary>
+    /// <returns>The number of non-civilians on vessel.</returns>
+    /// <param name="listOfMembers">List of members.</param>
+    /// <typeparam name="growthRate">The 1st type parameter.</typeparam>
     public int countNonCiviliansOnShip<growthRate> (List<growthRate> listOfMembers) where growthRate: CivilianPopulationRegulator
     {
       int numberNonCivilians = 0;
@@ -141,23 +170,7 @@ namespace CivilianPopulationRevamp
 
       return totalRent;
     }
-
-    /// <summary>
-    /// Gets the highest module growth rate of all modules on the craft.  Growth rates come from the part's .cfg files.
-    /// </summary>
-    /// <returns>The highest module growth rate.</returns>
-    /// <param name="listOfMembers">List of members.</param>
-    public double getHighestModuleGrowthRate<growthRate> (List<growthRate> listOfMembers) where growthRate: CivilianPopulationRegulator
-    {
-      double exponentialRate = 0d;//the malthusian parameter used to calculate the population growth.  Taken as largest value on vessel. 
-      foreach (CivilianPopulationRegulator myRegulator in listOfMembers) {
-        if (myRegulator.populationGrowthModifier > exponentialRate) {
-          exponentialRate = myRegulator.populationGrowthModifier;
-        }
-      }
-      return exponentialRate;//returns the largest rate among parts using CivilianPopulationRegulator class.
-    }
-
+      
     /// <summary>
     /// This method will place a new civilian in a part containing CivlianPopulationRegulator.  It should only
     /// be called when there are seat positions open in onesuch part.  Perhaps in the future, there will be a specific
@@ -204,7 +217,7 @@ namespace CivilianPopulationRevamp
     {
       if (Time.timeSinceLevelLoad < 1.0f || !FlightGlobals.ready) {
         //Error:  Not sure what this error is for...maybe not enough time since load?
-        Debug.Log(debuggingClass.modName + "ERROR:  check timeSinceLevelLoad/FlightGlobals");
+        Debug.Log(debuggingClass.modName + "WARNING:  check timeSinceLevelLoad/FlightGlobals");
         Debug.Log(debuggingClass.modName + "timeSinceLevelLoad = " + Time.timeSinceLevelLoad);
         Debug.Log(debuggingClass.modName + "FlightGlobals.ready = " + !FlightGlobals.ready);
         return -1;

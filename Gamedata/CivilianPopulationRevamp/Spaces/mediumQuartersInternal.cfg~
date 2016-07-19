@@ -1,0 +1,36 @@
+INTERNAL
+{
+  name = mediumCivilianPodInternals
+MODEL
+  {
+    model = CivilianPopulationRevamp/Assets/mediumQuartersInternal
+}
+  MODULE
+  {
+    name = InternalSeat
+    seatTransformName = Kerbal1
+		allowCrewHelmet = false
+  }
+
+  MODULE
+  {
+    name = InternalSeat
+    seatTransformName = Kerbal2
+		allowCrewHelmet = false
+  }
+
+  MODULE
+  {
+    name = InternalSeat
+    seatTransformName = Kerbal3
+		allowCrewHelmet = false
+  }
+  
+  MODULE
+  {
+    name = InternalSeat
+    seatTransformName = Kerbal4
+		allowCrewHelmet = false
+  }
+
+}

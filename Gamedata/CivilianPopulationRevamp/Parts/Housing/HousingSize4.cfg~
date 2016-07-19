@@ -46,7 +46,7 @@ MODULE
 }
 INTERNAL
 {
-	name = CivilianPopulationRevamp/Assets/largeApartmentInternals
+	name = mediumQuartersInternal
 }
 
 RESOURCE

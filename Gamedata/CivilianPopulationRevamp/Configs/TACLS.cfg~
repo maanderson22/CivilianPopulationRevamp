@@ -1,0 +1,1038 @@
+//---------------------------------------------------------CIVILIAN LIVING PARTS--TacLS Conversion--------------------------------
+
+@PART[t1CivilizationGenerationShipQuartersLarge]:NEEDS[TacLifeSupport]
+{
+RESOURCE{
+	name = Food
+	amount = 275
+	maxAmount = 275
+	}
+RESOURCE{
+	name = Water
+	amount = 193.85
+	maxAmount = 193.25
+	}
+RESOURCE{
+	name = Oxygen
+	amount = 27830
+	maxAmount = 27830
+	}
+	
+RESOURCE{
+	name = Waste
+	amount = 0
+	maxAmount = 28.85
+	}
+RESOURCE{
+	name = WasteWater
+	amount = 0
+	maxAmount = 247.5
+	}
+RESOURCE
+	{
+	name = CarbonDioxide
+	amount = 0
+	maxAmount = 24046
+	}
+}
+
+@PART[t1CivilizationGenerationShipQuartersMedium]:NEEDS[TacLifeSupport]
+{
+RESOURCE{
+	name = Food
+	amount = 125
+	maxAmount = 125
+	}
+RESOURCE{
+	name = Water
+	amount = 88.125
+	maxAmount = 88.125
+	}
+RESOURCE{
+	name = Oxygen
+	amount = 12650
+	maxAmount = 12650
+	}
+	
+RESOURCE{
+	name = Waste
+	amount = 0
+	maxAmount = 13.125
+	}
+RESOURCE{
+	name = WasteWater
+	amount = 0
+	maxAmount = 112.5
+	}
+RESOURCE
+	{
+	name = CarbonDioxide
+	amount = 0
+	maxAmount = 10930
+	}
+}
+
+@PART[InsituKerbalRecruiterTest]:NEEDS[TacLifeSupport]
+{
+RESOURCE{
+	name = Food
+	amount = 40
+	maxAmount = 40
+	}
+RESOURCE{
+	name = Water
+	amount = 28.25
+	maxAmount = 28.25
+	}
+RESOURCE{
+	name = Oxygen
+	amount = 4048
+	maxAmount = 4048
+	}
+	
+RESOURCE{
+	name = Waste
+	amount = 0
+	maxAmount = 4.2
+	}
+RESOURCE{
+	name = WasteWater
+	amount = 0
+	maxAmount = 36
+	}
+RESOURCE
+	{
+	name = CarbonDioxide
+	amount = 0
+	maxAmount = 3498
+	}
+}
+
+@PART[surfaceAttachHouseSmall]:NEEDS[TacLifeSupport]
+{
+RESOURCE{
+	name = Food
+	amount = 20
+	maxAmount = 20
+	}
+RESOURCE{
+	name = Water
+	amount = 14.25
+	maxAmount = 14.25
+	}
+RESOURCE{
+	name = Oxygen
+	amount = 2024
+	maxAmount = 2024
+	}
+	
+RESOURCE{
+	name = Waste
+	amount = 0
+	maxAmount = 3
+	}
+RESOURCE{
+	name = WasteWater
+	amount = 0
+	maxAmount = 17
+	}
+RESOURCE
+	{
+	name = CarbonDioxide
+	amount = 0
+	maxAmount = 1750
+	}
+}
+
+//------------------------------------------------FARM PARTS/TacLS CONVERSION-------------------------------------------------------------------
+
+@PART[stbiodomeFarmMk2]:NEEDS[TacLifeSupport]
+{
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = FoodGrow
+		StartActionName = Grow Food
+		StopActionName = Stop Growing	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.00376344086021505376344086021505	// 81.3/6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 50
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = Water
+			Ratio = 0.2
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = Substrate
+			Ratio = 0.05
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Food
+			Ratio = 3.55
+			DumpExcess = false
+			FlowMode = STAGE_PRIORITY_FLOW
+		 }
+	}
+
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = Scrubber
+		StartActionName = Start Air Circulator
+		StopActionName = Stop Air Circulator	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.00376344086021505376344086021505	// 81.3/6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 50
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = CarbonDioxide
+			Ratio = 51.25576627
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Oxygen
+			Ratio = 70.92198582
+		 }
+	}
+
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = WaterRecycler
+		StartActionName = Activate Water Recycler
+		StopActionName = Deactivate Water Recycler	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.00376344086021505376344086021505	// 81.3/6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 50
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = WasteWater
+			Ratio = 1
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Water
+			Ratio = 1
+			DumpExcess = false
+		 }
+	}
+	
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = Composter
+		StartActionName = Start Composter
+		StopActionName = Stop Composter
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.00376344086021505376344086021505	// 81.3/6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 40
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = Waste
+			Ratio = 1.3
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Substrate
+			Ratio = 0.08
+			DumpExcess = false
+			FlowMode = STAGE_PRIORITY_FLOW
+		 }
+	}
+	
+	RESOURCE
+	{
+		name = Water  
+		amount = 12000
+		maxAmount = 12000
+	}
+	
+	RESOURCE
+	{
+		name = Food  
+		amount = 0
+		maxAmount = 34000
+	}
+	
+	RESOURCE
+	{
+		name = Oxygen  
+		amount = 150000
+		maxAmount = 150000
+	}
+	
+	RESOURCE
+	{
+		name = Substrate
+		amount = 0
+		maxAmount = 2000
+	}
+	RESOURCE
+	{
+		name = CarbonDioxide
+		amount = 0
+		maxAmount = 75000
+	}
+	RESOURCE
+	{
+		name = WasteWater
+		amount = 0
+		maxAmount = 12000
+	}
+	
+	RESOURCE
+	{
+		name = Waste
+		amount = 0
+		maxAmount = 500
+	}
+}
+
+@PART[t1civGardenBiosphere]:NEEDS[TacLifeSupport]
+{
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = FoodGrow
+		StartActionName = Grow Food
+		StopActionName = Stop Growing	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.0025925925925926  // 56 /6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 400
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = Water
+			Ratio = 0.2
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = Substrate
+			Ratio = 0.05
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Food
+			Ratio = 3.55
+			DumpExcess = false
+			FlowMode = STAGE_PRIORITY_FLOW
+		 }
+	}
+
+
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = Scrubber
+		StartActionName = Start Air Circulator
+		StopActionName = Stop Air Circulator	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.0025925925925926  // 56 /6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 400
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = CarbonDioxide
+			Ratio = 51.25576627
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Oxygen
+			Ratio = 70.92198582
+		 }
+	}
+
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = WaterRecycler
+		StartActionName = Activate Water Recycler
+		StopActionName = Deactivate Water Recycler	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.0025925925925926  // 56 /6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 50
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = WasteWater
+			Ratio = 1
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Water
+			Ratio = 1
+		 }
+	}
+	
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = Composter
+		StartActionName = Start Composter
+		StopActionName = Stop Composter
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.0025925925925926  // 56 /6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 40
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = Waste
+			Ratio = 1.3
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = WasteWater
+			Ratio = 0.25
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Substrate
+			Ratio = 0.05
+			DumpExcess = false
+			FlowMode = STAGE_PRIORITY_FLOW
+		 }
+	}
+	
+	RESOURCE
+	{
+		name = Water  
+		amount = 12000
+		maxAmount = 12000
+	}
+	
+	RESOURCE
+	{
+		name = Food  
+		amount = 0
+		maxAmount = 34000
+	}
+	
+	RESOURCE
+	{
+		name = Oxygen  
+		amount = 150000
+		maxAmount = 150000
+	}
+	
+	RESOURCE
+	{
+		name = Substrate
+		amount = 0
+		maxAmount = 800
+	}
+	RESOURCE
+	{
+		name = CarbonDioxide
+		amount = 0
+		maxAmount = 75000
+	}
+	RESOURCE
+	{
+		name = WasteWater
+		amount = 0
+		maxAmount = 12000
+	}
+	
+	RESOURCE
+	{
+		name = Waste
+		amount = 0
+		maxAmount = 200
+	}
+}
+
+@PART[t1civGardenBiosphereMedium]:NEEDS[TacLifeSupport]
+{
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = FoodGrow
+		StartActionName = Grow Food
+		StopActionName = Stop Growing	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.0013888888888889  // 30 /6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 400
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = Water
+			Ratio = 0.2
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = Substrate
+			Ratio = 0.05
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Food
+			Ratio = 3.55
+			DumpExcess = false
+			FlowMode = STAGE_PRIORITY_FLOW
+		 }
+	}
+	
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = Scrubber
+		StartActionName = Start Air Circulator
+		StopActionName = Stop Air Circulator	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.0013888888888889  // 30 /6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 400
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = CarbonDioxide
+			Ratio = 51.25576627
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Oxygen
+			Ratio = 70.92198582
+		 }
+	}
+
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = WaterRecycler
+		StartActionName = Activate Water Recycler
+		StopActionName = Deactivate Water Recycler	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.0013888888888889  // 30 /6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 50
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = WasteWater
+			Ratio = 1
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Water
+			Ratio = 1
+		 }
+	}
+	
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = Composter
+		StartActionName = Start Composter
+		StopActionName = Stop Composter
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 0.0013888888888889  // 30 /6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 40
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = Waste
+			Ratio = 1.3
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = WasteWater
+			Ratio = 0.25
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Substrate
+			Ratio = 0.04
+			DumpExcess = false
+			FlowMode = STAGE_PRIORITY_FLOW
+		 }
+	}
+
+	RESOURCE{
+		name = Water
+		amount = 5000
+		maxAmount = 5000
+	}
+	
+	RESOURCE{
+		name = Food
+		amount = 0
+		maxAmount = 15000
+	}
+	RESOURCE
+	{
+		name = Oxygen  
+		amount = 37500
+		maxAmount = 37500
+	}
+	
+	RESOURCE
+	{
+		name = Substrate
+		amount = 0
+		maxAmount = 200
+	}
+	RESOURCE
+	{
+		name = CarbonDioxide
+		amount = 0
+		maxAmount = 18750
+	}
+	RESOURCE
+	{
+		name = WasteWater
+		amount = 0
+		maxAmount = 6000
+	}
+	RESOURCE
+	{
+		name = Waste
+		amount = 0
+		maxAmount = 50
+	}
+}
+
+@PART[t1civSmallGardenModule]:NEEDS[TacLifeSupport]
+{
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = FoodGrow
+		StartActionName = Grow Food
+		StopActionName = Stop Growing	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 4.62962962962963e-4 // 10 /6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 400
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = Water
+			Ratio = 0.2
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = Substrate
+			Ratio = 0.05
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Food
+			Ratio = 3.55
+			DumpExcess = false
+			FlowMode = STAGE_PRIORITY_FLOW
+		 }
+	}
+
+
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = Scrubber
+		StartActionName = Start Air Circulator
+		StopActionName = Stop Air Circulator	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 4.62962962962963e-4 // 10 /6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 400
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = CarbonDioxide
+			Ratio = 51.25576627
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Oxygen
+			Ratio = 70.92198582
+		 }
+	}
+
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = WaterRecycler
+		StartActionName = Activate Water Recycler
+		StopActionName = Deactivate Water Recycler	 
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 4.62962962962963e-4 // 10 /6 hours
+		INPUT_RESOURCE
+		 {
+			ResourceName = ElectricCharge
+			Ratio = 400
+		 }
+		 INPUT_RESOURCE
+		 {
+			ResourceName = WasteWater
+			Ratio = 1
+		 }
+		 OUTPUT_RESOURCE
+		 {
+			ResourceName = Water
+			Ratio = 1
+		 }
+	}
+	
+	MODULE
+	{
+		name = ModuleResourceConverter
+		ConverterName = Composter
+		StartActionName = Start Composter
+		StopActionName = Stop Composter
+		AutoShutdown = false
+		GeneratesHeat = false
+		UseSpecialistBonus = false
+		EfficiencyBonus = 4.62962962962963e-4 // 10 /6 hours
+		INPUT_RESOURCE
+		{
+			ResourceName = ElectricCharge
+			Ratio = 40
+		}
+		 INPUT_RESOURCE
+		{
+			ResourceName = Waste
+			Ratio = 1.3
+		}
+		 INPUT_RESOURCE
+		{
+			ResourceName = WasteWater
+			Ratio = 0.25
+		}
+		 OUTPUT_RESOURCE
+		{
+			ResourceName = Substrate
+			Ratio = 0.04
+			DumpExcess = false
+			FlowMode = STAGE_PRIORITY_FLOW
+		}
+	}
+	
+	RESOURCE
+	{
+		name = Water  
+		amount = 1000
+		maxAmount = 1000
+	}
+	
+	RESOURCE
+	{
+		name = Food  
+		amount = 0
+		maxAmount = 3558
+	}
+	
+	RESOURCE
+	{
+		name = Oxygen  
+		amount = 12500
+		maxAmount = 12500
+	}
+	
+	RESOURCE
+	{
+		name = Substrate
+		amount = 0
+		maxAmount = 30
+	}
+	RESOURCE
+	{
+		name = CarbonDioxide
+		amount = 0
+		maxAmount = 6250
+	}
+	RESOURCE
+	{
+		name = WasteWater
+		amount = 0
+		maxAmount = 1000
+	}
+	RESOURCE
+	{
+		name = Waste
+		amount = 0
+		maxAmount = 12.5
+	}
+}
+
+//-------------------------DOCK PARTS/TacLS CONVERSION----------------------------------
+
+@PART[civieDock]:NEEDS[TacLifeSupport]
+{	
+	RESOURCE
+	{
+		name = Waste
+		amount = 0
+		maxAmount = 10
+	}
+	RESOURCE
+	{
+		name = WasteWater
+		amount = 0
+		maxAmount = 10
+	}
+	RESOURCE
+	{
+		name = CarbonDioxide
+		amount = 0
+		maxAmount = 876
+	}
+	
+	RESOURCE
+	{
+		name = Food
+		amount = 20
+		maxAmount = 20
+	}
+	RESOURCE
+	{
+		name = Water
+		amount = 90
+		maxAmount = 90
+	}
+	RESOURCE
+	{
+		name = Oxygen
+		amount = 956
+		maxAmount = 956
+	}
+}
+
+@PART[civieLandingPadSpace]:NEEDS[TacLifeSupport]
+{	
+	RESOURCE
+	{
+		name = Waste
+		amount = 0
+		maxAmount = 90
+	}
+	RESOURCE
+	{
+		name = WasteWater
+		amount = 0
+		maxAmount = 60
+	}
+	
+	RESOURCE
+	{
+		name = CarbonDioxide
+		amount = 0
+		maxAmount = 1276
+	}
+	
+	RESOURCE
+	}
+		name = Food
+		amount = 30
+		maxAmount = 30
+	}
+	RESOURCE
+	}
+		name = Oxygen
+		amount = 1656
+		maxAmount = 1656
+	}
+	
+	RESOURCE
+	}
+		name = Water
+		amount = 180
+		maxAmount = 180
+	}
+	RESOURCE
+	{
+		name = ElectricCharge
+		amount = 200
+		maxAmount = 200
+	}
+}
+
+@PART[civieLandingPadGround]:NEEDS[TacLifeSupport]
+{	
+	RESOURCE
+	{
+		name = Waste
+		amount = 0
+		maxAmount = 90
+	}
+	RESOURCE
+	{
+		name = WasteWater
+		amount = 0
+		maxAmount = 60
+	}
+	
+	RESOURCE
+	{
+		name = CarbonDioxide
+		amount = 0
+		maxAmount = 1276
+	}
+	
+	RESOURCE
+	{
+		name = Food
+		amount = 30
+		maxAmount = 30
+	}
+	RESOURCE
+	{
+		name = Oxygen
+		amount = 1656
+		maxAmount = 1656
+	}
+	
+	RESOURCE
+	{
+		name = Water
+		amount = 180
+		maxAmount = 180
+	}
+}
+
+
+//-------------------MISC PARTS/TacLS CONVERSION----------------------------------
+
+@PART[bioSphereAirlock]:NEEDS[TacLifeSupport]
+{	
+		RESOURCE
+	{
+		name = Food
+		amount = 1.1
+		maxAmount = 1.1
+	}
+	RESOURCE
+	{
+		name = Water
+		amount = 1.2
+		maxAmount = 1.2
+	}
+	RESOURCE
+	{
+		name = Oxygen
+		amount = 444.152
+		maxAmount = 444.152
+	}
+	RESOURCE
+	{
+		name = CarbonDioxide
+		amount = 0
+		maxAmount = 383.752
+	}
+	RESOURCE
+	{
+		name = Waste
+		amount = 0
+		maxAmount = 0.05
+	}
+	RESOURCE
+	{
+		name = WasteWater
+		amount = 0
+		maxAmount = 1.5
+	}
+
+@PART[t1CivWaterTank]:NEEDS[TacLifeSupport]
+{
+	RESOURCE{
+		name = Food
+		amount = 750
+		maxAmount = 750
+	}
+
+
+	RESOURCE{
+		name = Water
+		amount = 210
+		maxAmount = 210
+	}
+}
+
+@PART[t1civWasteWaterTank]:NEEDS[TacLifeSupport]
+{
+	RESOURCE {
+		name = Waste
+		amount = 0
+		maxAmount=280
+	}
+		RESOURCE {
+		name = WasteWater
+		amount = 0
+		maxAmount=210
+	}
+}
+
+	
+		
