@@ -131,7 +131,6 @@
 			Ratio = 0.053
 			DumpExcess = False
 		}
-	}
 }
 
 @PART[t1civGardenBiosphere]:NEEDS[USILifeSupport]
