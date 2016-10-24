@@ -19,6 +19,7 @@ namespace CivilianPopulationRevamp
       }
     }
 
+
     public void FixedUpdate ()
     {
       if (!HighLogic.LoadedSceneIsFlight)
@@ -57,10 +58,11 @@ namespace CivilianPopulationRevamp
           placeNewCivilian (listOfCivilianParts);
           part.RequestResource (debuggingClass.civilianResource, 1.0);
         }//end if condition to create Civilians
-      }
+
+        lastActiveTime = Planetarium.GetUniversalTime ();
+      }//end if master part
       //Debug.Log (debuggingClass.modName + "Finished FixedUpdate!");
-    }
-// end FixedUpdate
+    }// end FixedUpdate
 
     /// <summary>
     /// Calculates the growth rate for civilians taking rides up to the station.
@@ -81,31 +83,26 @@ namespace CivilianPopulationRevamp
     /// <returns>The recruitment modifier due to.</returns>
     double getRecruitmentSoIModifier ()
     {
+      double recruitmentRateModifier = 0d;
+      //Debug.Log (debuggingClass.modName + FlightGlobals.currentMainBody.orbit.referenceBody.isHomeWorld);
       if (!vessel.LandedOrSplashed) {
         ////print(FlightGlobals.currentMainBody.name);
-        double recruitmentRateModifier = 0d;
-        //if(vessel.situation.ToString == "Orbit")
-        switch (FlightGlobals.currentMainBody.name) {
-        case "Kerbin":
-          //Debug.Log (debuggingClass.modName + "Currently near Kerbin!");
-          recruitmentRateModifier = 1.0;
-          return recruitmentRateModifier;
-        case "Mun":
-          //Debug.Log (debuggingClass.modName + "Currently near Mun!");
-          recruitmentRateModifier = 0.5;
-          return recruitmentRateModifier;
-        case "Minmus":
-          //Debug.Log (debuggingClass.modName + "Currently near Minmus!");
-          recruitmentRateModifier = 0.25;
-          return recruitmentRateModifier;
-        default:
-          Debug.Log (debuggingClass.modName + "Problem finding SoI body!");
-          recruitmentRateModifier = 0;
-          return recruitmentRateModifier;
+        if (FlightGlobals.currentMainBody.isHomeWorld) {
+          recruitmentRateModifier = 1.0;//case for Kerbin/home world
+        } else {
+          try
+          {
+            if(FlightGlobals.currentMainBody.orbit.referenceBody.isHomeWorld){//gives NullReference if in orbit around Kerbol
+              recruitmentRateModifier = 0.5;//case for moon in orbit aroudn Kerbin/home world
+            }
+          }
+          catch(NullReferenceException error){//case for if in orbit around home body's star
+            //Debug.Log (debuggingClass.modName + "Problem finding SoI body!");
+            recruitmentRateModifier = 0.0;//case for orbit around central star (which Kerbin/home world orbits)
+          }
         }
       }
-      //Debug.Log (debuggingClass.modName + "I'm landed!");
-      return 0;//else case
+      return recruitmentRateModifier;
     }
   }
 }

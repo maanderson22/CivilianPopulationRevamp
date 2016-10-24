@@ -23,18 +23,19 @@ namespace CivilianPopulationRevamp
     /// </summary>
     [KSPField (isPersistant = true, guiActive = true, guiName = "Time until Rent payment")]
     public double TimeUntilTaxes = 21600.0;
-    /*
-    /// <summary>
-    /// The last time since calculateRateOverTime() was run.  Used to calculate time steps (?)
+
+    ///<summary>
+    /// The last time the ship was active, to approximately 1 day.  Used to calculate time step between when craft was 
+    /// loaded and when when it was activated.
     /// </summary>
     [KSPField (isPersistant = true, guiActive = false)]
-    public float lastTime;
+    public double lastActiveTime;
 
-    */
     //only one part with this can be the master on any vessel.
     //this prevents duplicating the population calculation
     public bool master = false;
     public bool slave = false;
+
 
     /// <summary>
     /// Gets the first part within the vessel implementing Civilian Population and assigns it as the master.  Also
@@ -184,6 +185,7 @@ namespace CivilianPopulationRevamp
       foreach (growthRate currentPart in listOfMembers) {
         if (currentPart.part.CrewCapacity > currentPart.part.protoModuleCrew.Count () && !civPlaced) {
           if (currentPart.part.AddCrewmember (newCivilian)) {
+            vessel.SpawnCrew();
             Debug.Log (debuggingClass.modName + newCivilian.name + " has been placed successfully by placeNewCivilian");
             civPlaced = true;
           }
@@ -258,12 +260,11 @@ namespace CivilianPopulationRevamp
     public double getResourceBudget (string name)
     {
       if (this.vessel != null) {
-        var resources = vessel.GetActiveResources ();
-        for (int i = 0; i < resources.Count; i++) {
-          if (resources [i].info.name == name) {
-            return (double)resources [i].amount;
-          }
-        }
+        var myVar = this.part.Resources.Get (name).info.id;
+        double civilianResourceAmount;
+        double maxCivilianResourceAmount;//not used but needed for vessel.GetConnectedResourceTotals
+        this.vessel.GetConnectedResourceTotals (myVar, out civilianResourceAmount, out maxCivilianResourceAmount, true);
+        return civilianResourceAmount;
       }
       return 0;
     }

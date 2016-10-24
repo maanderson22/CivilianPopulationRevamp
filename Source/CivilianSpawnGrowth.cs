@@ -31,44 +31,45 @@ namespace CivilianPopulationRevamp
       }
         
       //if (HighLogic.LoadedSceneIsFlight) {
-        int civilianPopulation = 0;
-        int nonCivilianPopulation = 0;
-        int civilianPopulationSeats = 0;
-        double malthusianGrowthParameter = 0d;
-        double percentCurrentCivilian = 0d;
+      int civilianPopulation = 0;
+      int nonCivilianPopulation = 0;
+      int civilianPopulationSeats = 0;
+      double malthusianGrowthParameter = 0d;
+      double percentCurrentCivilian = 0d;
       if (master == true) {                //slave is set during OnStart() for all but the master part.
         double dt = Time.deltaTime;
 
-          //Section to calculate growth variables
-          civilianPopulation = countCiviliansOnShip (listOfCivilianParts);//number of seats taken by civilians in parts using class
-          nonCivilianPopulation = countNonCiviliansOnShip (listOfCivilianParts);//number of 
-          civilianPopulationSeats = countCivilianSeatsOnShip (listOfCivilianParts);//total seats implementing class
-          malthusianGrowthParameter = getHighestModuleGrowthRate (listOfCivilianParts);
-          percentCurrentCivilian = getResourceBudget (debuggingClass.civilianResource);//get current value of Civilian Counter (0.0-1.0)
+        //Section to calculate growth variables
+        civilianPopulation = countCiviliansOnShip (listOfCivilianParts);//number of seats taken by civilians in parts using class
+        nonCivilianPopulation = countNonCiviliansOnShip (listOfCivilianParts);//number of 
+        civilianPopulationSeats = countCivilianSeatsOnShip (listOfCivilianParts);//total seats implementing class
+        malthusianGrowthParameter = getHighestModuleGrowthRate (listOfCivilianParts);
+        percentCurrentCivilian = getResourceBudget (debuggingClass.civilianResource);//get current value of Civilian Counter (0.0-1.0)
 
 
-          percentCurrentCivilianRate = calculateGrowthRate (civilianPopulationSeats, malthusianGrowthParameter, civilianPopulation);
+        percentCurrentCivilianRate = calculateGrowthRate (civilianPopulationSeats, malthusianGrowthParameter, civilianPopulation);
 
 
-          //how much civilianCounter will change on iteration
+        //how much civilianCounter will change on iteration
 
-          if (HighLogic.CurrentGame.Mode == Game.Modes.CAREER)
-            getTaxes (civilianPopulation, dt);
+        if (HighLogic.CurrentGame.Mode == Game.Modes.CAREER)
+          getTaxes (civilianPopulation, dt);
 
-          //Section for creating Civilians
-          part.RequestResource (debuggingClass.civilianResource, -percentCurrentCivilianRate * dt * TimeWarp.CurrentRate);//increments counter bar
-          if ((percentCurrentCivilian > 1) && (civilianPopulationSeats > civilianPopulation + nonCivilianPopulation)) {
-            //Debug.Log (debuggingClass.modName + "Can create Civilian:  " + percentCurrentCivilian + ", "
-            //+ (civilianPopulationSeats - (civilianPopulation + nonCivilianPopulation)) + " seats currently open.");
-            placeNewCivilian (listOfCivilianParts);
-            part.RequestResource (debuggingClass.civilianResource, 1.0);
+        //Section for creating Civilians
+        part.RequestResource (debuggingClass.civilianResource, -percentCurrentCivilianRate * dt * TimeWarp.CurrentRate);//increments counter bar
+        if ((percentCurrentCivilian > 1) && (civilianPopulationSeats > civilianPopulation + nonCivilianPopulation)) {
+          //Debug.Log (debuggingClass.modName + "Can create Civilian:  " + percentCurrentCivilian + ", "
+          //+ (civilianPopulationSeats - (civilianPopulation + nonCivilianPopulation)) + " seats currently open.");
+          placeNewCivilian (listOfCivilianParts);
+          part.RequestResource (debuggingClass.civilianResource, 1.0);
           //}
         }//end if condition to create Civilians
-      }else {                   //executes only for master part (aka once per update)
+      } else {                   //executes only for master part (aka once per update)
         //Debug.Log(debuggingClass.modName + "Slave updated!");
         return;//end if...else master
-    }// end OnFixedUpdate
+      }
     }
+// end OnFixedUpdate
 
     /// <summary>
     /// Calculates the growth rate using a logistic function with parameters for:
@@ -86,7 +87,6 @@ namespace CivilianPopulationRevamp
     {
       double populationGrowthRate = 0d;
       populationGrowthRate = (double)steepness * (double)currentPopulation * (1 - ((double)currentPopulation / (double)maximumSeats));
-      Debug.Log (debuggingClass.modName + "calculatedGrowthRate = " + populationGrowthRate);
       return populationGrowthRate;
       //}
     }
@@ -108,4 +108,3 @@ namespace CivilianPopulationRevamp
     }
   }
 }
-
